@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Korobieinikov Matvii</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			padding: 8px;
+			text-align: left;
+			border: 1px solid #ddd;
+		}
+		th {
+			background-color: #282e83;
+      color: white;
+		}
+		tr:nth-child(even) {
+			background-color: #d8a0a0;
+		}
+	</style>
+</head>
+<body>
+	<h1>Лабораторна Робота 2 <br>
+	Коробєйніков Матвій КІУКІ-19-7 Варіант 4
+	</h1>
+	<p>Інтервал в секундах: <input type="number" id="interval" value="0.1"></p>
+	<button id="startButton">Старт</button>
+	<button id="stopButton">Стоп</button>
+	<table id="dataTable">
+		<thead>
+			<tr>
+				<th>Ім'я</th>
+				<th>Прізвище</th>
+				<th>Вік</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<script>
+		const dataTable = document.getElementById('dataTable');
+		const intervalInput = document.getElementById('interval');
+		const startButton = document.getElementById('startButton');
+		const stopButton = document.getElementById('stopButton');
+		let intervalId;
+
+		startButton.addEventListener('click', () => {
+			const interval = intervalInput.value;
+			intervalId = setInterval(() => {
+				const row = document.createElement('tr');
+				const firstName = getRandomName();
+				const lastName = getRandomName();
+				const age = getRandomInt(18, 22);
+				row.innerHTML = `<td>${firstName}</td><td>${lastName}</td><td>${age}</td>`;
+				dataTable.querySelector('tbody').appendChild(row);
+			}, interval * 1000);
+		});
+
+		stopButton.addEventListener('click', () => {
+			clearInterval(intervalId);
+		});
+
+		function getRandomName() {
+			const names = ['Матвій', 'Олександр', 'Сергій', 'Ана', 'Іван', 'Юлія'];
+			const surnames = ['Коробєйніков', 'Петров', 'Сергіїв', 'Андріїв', 'Іванов'];
+			const firstName = names[Math.floor(Math.random() * names.length)];
+			const lastName = surnames[Math.floor(Math.random() * surnames.length)];
+			return `${firstName} ${lastName}`;
+		}
+
+		function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+	</script>
+</body>
+</html>
